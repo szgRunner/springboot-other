@@ -1,0 +1,7 @@
+spring:
+  rabbitmq:
+    username: sunzg
+    password: zhaoguo
+    virtual-host: /
+    host: 82.156.13.69
+    port: 35672
