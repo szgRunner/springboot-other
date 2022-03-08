@@ -31,6 +31,8 @@ public class Test {
         System.out.println(array[0]);//1
 
 
+        // 我们使用包装类型数组就可以解决这个问题。
+        Integer[] myArrays = {1, 2, 3};
     }
 
 }
