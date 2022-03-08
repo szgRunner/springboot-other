@@ -3,8 +3,10 @@ package sun.zhao.guo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Test {
 
@@ -33,6 +35,14 @@ public class Test {
 
         // 我们使用包装类型数组就可以解决这个问题。
         Integer[] myArrays = {1, 2, 3};
+        List list = new ArrayList<>(Arrays.asList("a", "b", "c"));
+
+        //java8
+        List myList1 = Arrays.stream(myArrays).collect(Collectors.toList());
+        //基本类型也可以实现转换（依赖boxed的装箱操作）
+        int [] myArray2 = { 1, 2, 3 };
+        List myList2 = Arrays.stream(myArray2).boxed().collect(Collectors.toList());
+
     }
 
 }
