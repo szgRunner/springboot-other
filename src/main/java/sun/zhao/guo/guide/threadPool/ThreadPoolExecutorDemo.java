@@ -9,9 +9,9 @@ package sun.zhao.guo.guide.threadPool;
  * @Description:
  */
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
+import java.util.concurrent.*;
 
 public class ThreadPoolExecutorDemo {
 
@@ -36,7 +36,21 @@ public class ThreadPoolExecutorDemo {
     private static final int MAX_POOL_SIZE = 10;
     private static final int QUEUE_CAPACITY = 15;
     private static final Long KEEP_ALIVE_TIME = 1L;
+    private static final String threadNamePrefix = "springboot-sunzg-";
     public static void main(String[] args) {
+
+        /**
+         * 给线程池里的线程命名通常有下面两种方式：
+         *
+         * **1.利用 guava 的 ThreadFactoryBuilder **
+         */
+        ThreadFactory threadFactory = new ThreadFactoryBuilder()
+                .setNameFormat(threadNamePrefix + "-%d")
+                .setDaemon(true).build();
+        ExecutorService threadPool = new ThreadPoolExecutor(CORE_POOL_SIZE,
+                MAX_POOL_SIZE, KEEP_ALIVE_TIME, TimeUnit.MINUTES,
+                new ArrayBlockingQueue<>(QUEUE_CAPACITY), threadFactory);
+
 
         //使用阿里巴巴推荐的创建线程池的方式
         //通过ThreadPoolExecutor构造函数自定义参数创建
