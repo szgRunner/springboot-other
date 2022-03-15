@@ -57,3 +57,10 @@ springboot 2.6.2 with other tools
     protected boolean isHeldExclusively()//该线程是否正在独占资源。只有用到condition才需要去实现它。
 
 ```
+
+## Semaphore
+
+```text
+   Synchronized 和 ReentrantLock 一次只允许一个线程获取到锁 访问某一个资源。
+   Semaphore 可以允许多个线程同时访问某一个资源
+```
