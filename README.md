@@ -1,6 +1,8 @@
 # springboot-other
 springboot 2.6.2 with other tools
 
+# 上下文切换
+
 ```text
    上下文切换
    多线程编程中一般线程的数量都大于CPU核心的个数，而一个CPU核心在任意时刻只能被一个线程使用，为了让这些线程都能得到有效执行，CPU采取的策略
@@ -19,4 +21,39 @@ springboot 2.6.2 with other tools
    AQS的核心思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效线程，并且将共享资源设置为锁定状态。如果被请求的资源被占用
 那么就需要一个线程阻塞等待以及被唤醒时锁分配的机制。这个机制AQS是用CLH（虚拟的双向队列-> 即不存在队列实例，只存在节点之间的关联关系）队列
 锁实现。即将暂时获取锁的线程添加到队列中。
+   AQS 使用一个int 类型的成员变量来表示同步状态，通过内置的FIFO队列来完成获取资源线程的排队工作。AQS使用CAS对该同步状态进行原子操作
+实现对其值的修改。
+   AQS 资源共享的方式
+   1、独占
+      ReentrantLock
+      1、公平锁
+      2、非公平锁
+      两者的不同
+      1、非公平锁在调用lock后，首先就会调用CAS进行一次抢锁，如果这个时候恰巧锁没有被占用，那么直接就获取到锁返回。
+      2、非公平锁在CAS失败后，，和公平锁一样都会进入到 tryAcquire 方法，在 tryAcquire 方法中，如果发现这个时候锁被释放了（state == 0）
+   非公平锁会直接进行CAS抢锁。 
+         公平锁会判断等待队列中是否有线程处于等待状态，如果有则不去抢锁，然后乖乖的排到队列后面。
+      公平锁和非公平锁就这两点不同，如果这两次CAS操作都不成功，那么它们的后续是一样的，都会进入到阻塞队列等待唤醒。
+      相对来说，非公平锁拥有更好的性能。因为它的吞吐量比较大。但是这也让获取锁的时间变得更加不确定，可能导致在阻塞队列中的线程
+   长期处于饥饿状态。
+   2、共享
+      多个线程可公式执行
+      如 CountDownLatch、CycleBarrier, ReadWriteLock、Semaphore
+
+      ReentrantReadWriteLock 可以看做事组合式的，也就是读写锁允许多个线程同时对某一资源进行读。
+   
+   不同的自定义同步器的争抢共享资源的方式也不同。自定义同步器在实现时只需要实现共享资源 state 的获取和释放方式即可。至于具体线程
+等待队列的维护，AQS已经帮我们实现好了。
+
+```
+
+## AQS 底层模板方法，自定义同步器是只需要实现以下钩子方法 
+
+```code
+    protected boolean tryAcquire(int)//独占方式。尝试获取资源，成功则返回true，失败则返回false。
+    protected boolean tryRelease(int)//独占方式。尝试释放资源，成功则返回true，失败则返回false。
+    protected boolean tryAcquireShared(int)//共享方式。尝试获取资源。负数表示失败；0表示成功，但没有剩余可用资源；正数表示成功，且有剩余资源。
+    protected boolean tryReleaseShared(int)//共享方式。尝试释放资源，成功则返回true，失败则返回false。
+    protected boolean isHeldExclusively()//该线程是否正在独占资源。只有用到condition才需要去实现它。
+
 ```
