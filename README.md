@@ -63,4 +63,81 @@ springboot 2.6.2 with other tools
 ```text
    Synchronized 和 ReentrantLock 一次只允许一个线程获取到锁 访问某一个资源。
    Semaphore 可以允许多个线程同时访问某一个资源
+   执行 acquire() 方法阻塞，直到有一个许可证可以获得然后拿走一个许可证，这可能会释放一个阻塞 acquire 方法。然而，并没有实际的许可证
+这个对象，Semaphore 只是维持了一个可获得许可证的数量。它经常被用于限制某种的资源的线程数量。
+   
+   当然一次也可以一次拿取和释放多个许可，不过一般没有必要这样做。
 ```
+
+```code
+   semaphore.acquire(5); // 获取5个许可，则可运行的线程数量则为 20/5=4
+   test(threadNum);
+   semaphore.release(5);
+```
+
+```text
+   除了 acquire 方法外，另一个比较常用的与之对应的方法是 tryAcquire() ，该方法如果获取不到许可证就会立即放回false
+
+   semaphore 有两个模式
+   1、公平模式
+      调用acquire 方法的顺序就是获得许可证的顺序，遵循FIFO
+   2、非公平模式
+      抢占式
+   
+```   
+```code
+    public Semaphore(int permits) {
+        sync = new NonfairSync(permits);
+    }
+
+    public Semaphore(int permits, boolean fair) {
+        sync = fair ? new FairSync(permits) : new NonfairSync(permits);
+    }
+```
+```
+   这两个构造方法，都必须提供许可的数量，第二个构造方法可以指定是公平模式还是非公平模式，默认非公平模式。
+
+   issue645 补充内容 ：Semaphore 与 CountDownLatch 一样，也是共享锁的一种实现。它默认构造 AQS 的 state 为 permits。
+当执行任务的线程数量超出 permits，那么多余的线程将会被放入阻塞队列 Park,并自旋判断 state 是否大于 0。只有当 state 大于 0 的时候，
+阻塞的线程才能继续执行,此时先前执行任务的线程继续执行 release() 方法，release() 方法使得 state 的变量会加 1，那么自旋的线程便会判断成功。
+ 如此，每次只有最多不超过 permits 数量的线程能自旋成功，便限制了执行任务线程的数量。
+```
+
+## CountDownLatch
+
+```text
+   CountDownLatch 允许 count 个线程阻塞在一个地方，直到所有线程的任务都执行完毕。
+   CountDownLatch 是共享锁的一种实现。
+   它默认构造AQS的 state 为 count。当线程使用 countDown() 方法时，其实调用了 tryReleaseShared 方法以CAS操作来减少state，直至state
+为0。当 调用 await 方法的时候，如果 state 不为0，那就证明任务还没有执行完毕， await 方法就会一直阻塞。也就是说 await 方法之后的语句不会
+被执行。然后 CountDownLatch 会自旋CAS判断 state == 0， 如果 state == 0 的话就会释放所有等待的线程。await 方法之后的语句就会得到执行。
+   
+   CountDownLatch 两种典型用法
+   1、某一线程在开始运行前等待 n 个线程执行完毕。
+   将 CountDownLatch 的计数器初始化为 n （new CountDownLatch(n)），每当一个任务线程执行完毕，就将计数器减 1 （countdownlatch.countDown()，
+当计数器的值变为 0 时，在 CountDownLatch 上 await() 的线程就会被唤醒。
+一个典型应用场景就是启动一个服务时，主线程需要等待多个组件加载完毕，之后再继续执行。
+   
+   2、实现多个线程开始执行任务的最大并行性。
+   
+   注意是并行性，不是并发，强调的是多个线程在某一时刻同时开始执行。类似于赛跑，将多个线程放到起点，等待发令枪响，然后同时开跑。
+做法是初始化一个共享的 CountDownLatch 对象，将其计数器初始化为 1 （new CountDownLatch(1)），多个线程在开始执行任务前
+首先 coundownlatch.await()，当主线程调用 countDown() 时，计数器变为 0，多个线程同时被唤醒。
+
+   CountDownLatch 的不足
+   CountDownLatch 是一次性的，计数器的值只能在构造器中初始化一次，之后没有任何机制在对其进行设置。使用完毕后，不能再被使用。
+```
+
+## CyclicBarrier 循环栅栏
+
+   CyclicBarrier 和 CountDownLatch 非常类似。他也可以实现线程间的技术等待。但是它的功能比CountDownLatch 更加负责和强大。
+两者的场景类似。
+```text
+   CountDownLatch 的实现是基于AQS的，而 CyclicBarrier 是 ReentrantLock (它也属于 AQS 同步器) 和 Condition 的。
+```
+   CyclicBarrier 字面意思是可循环使用的屏障。它让一组线程到达一个屏障（也可以叫同步点）时被阻塞， 直到最后一个线程到达屏障时，屏障才会开门
+所有被屏障拦截的线程才会继续执行。
+   它默认的构造方法时 new CyclicBarrier(int parties) ，参数表示要拦截的线程数量，每个线程调用 await 方法告诉 CyclicBarrier 我已到达
+屏障，然后当前线程被阻塞。 当拦截的线程数量达到 parties 这个值的时候，就会打开栅栏，让所有线程通过。
+   CyclicBarrier 还提供了一个更高级别的构造函数 CyclicBarrier(int parties, Runnable barrierAction), 用于在线程到达屏障时，优先执行
+barrierAction, 方便处理更复杂的业务场景。

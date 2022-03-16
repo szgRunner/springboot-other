@@ -35,25 +35,28 @@ public class CountDownLatchDemo {
 
         final CountDownLatch countDownLatch = new CountDownLatch(threadCount);
         for (int i = 0; i < threadCount; i++) {
-//            final int threadNum = i;
-            executorService.execute(() -> {
+            final int threadnum = i;
+            executorService.execute(() -> {// Lambda 表达式的运用
                 try {
-                    //处理文件的业务操作
-                    //......
-                    System.out.println(" do sth ");
+                    test(threadnum);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } finally {
+                    countDownLatch.countDown();// 表示一个请求已经被完成
                 }
-//                catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-                finally {
-                    //表示一个文件已经被完成
-                    countDownLatch.countDown();
-                }
+
             });
         }
         countDownLatch.await();
         executorService.shutdown();
         System.out.println("finished");
+    }
+
+    public static void test(int threadnum) throws InterruptedException {
+        Thread.sleep(1000);// 模拟请求的耗时操作
+        System.out.println("threadnum:" + threadnum);
+        Thread.sleep(1000);// 模拟请求的耗时操作
     }
 
 }
