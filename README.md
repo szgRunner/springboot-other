@@ -141,3 +141,30 @@ springboot 2.6.2 with other tools
 屏障，然后当前线程被阻塞。 当拦截的线程数量达到 parties 这个值的时候，就会打开栅栏，让所有线程通过。
    CyclicBarrier 还提供了一个更高级别的构造函数 CyclicBarrier(int parties, Runnable barrierAction), 用于在线程到达屏障时，优先执行
 barrierAction, 方便处理更复杂的业务场景。
+
+   CyclicBarrier 内部通过一个count 变量作为计数器，count 初始值为parties属性的初始值。每当一个线程到达栅栏这里，那么就将计数器减一
+。如果count 值为0，则代表这一波最后一个线程到达栅栏，就尝试执行我们构造方法中输入的任务。
+
+### CyclicBarrier 和 CountDownLatch 的区别
+   1、CountDownLatch 是计数器，只能使用一次，而CyclicBarrier的计数器reset 功能，可以重复使用。
+   2、对于 CountDownLatch 来说，重点一个线程（多个线程）等待， 而其他N个线程在完成某件事情后，可以终止，可以等待。而对于CyclicBarrier
+重点是多个线程，在任意一个线程没有完成之前，所有线程都必须等待。
+   3、CountDownLatch 是计数器，线程完成一个记录一个，只不过计数器不是递增而是递减。 CyclicBarrier 更像是一个阀门，需要所有线程都到达，
+阀门才能打开，然后继续执行。
+
+### ReentrantLock 和 ReentrantReadWriteLock
+    1、ReentrantLock 悲观锁
+    2、ReentrantReadWriteLock 可以保证多个线程可以同时读，所以在读操作远大于写操纵的情况
+    
+### JUC 应用场景
+
+ 同步工具 | 与  AQS 的关联
+ --- | --- 
+ ReentrantLock | 使用AQS保存锁重复持有的次数。当一个线程获取锁时，ReentrantLock 记录当时获得锁的线程标识，用于检测是否重复获取。以及错误
+ ReentrantLock | 以及错误线程试图解锁操作时异常情况的处理。
+ Semaphore | 使用 AQS 同步状态保存信号量的当前计数。 TryRelease 会增加计数，acquireShared 会减少计数
+ CountDownLatch | 使用 AQS 同步状态来表示计数，计数为0；所有的 Acquire操作（CountDownLatch 的 await 方法）才可以通过。
+ ReentrantReadWriteLock | 使用AQS 同步状态中的16位来保存写锁持有的次数，剩下的16位来保存读锁持有的次数。
+ ThreadPoolExecutor | Worker 利用 AQS 同步状态来实现对独占线程变量的设置
+    
+
