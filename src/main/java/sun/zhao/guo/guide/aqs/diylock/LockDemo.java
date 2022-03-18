@@ -1,5 +1,7 @@
 package sun.zhao.guo.guide.aqs.diylock;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -19,6 +21,7 @@ public class LockDemo {
            try {
                diyLock.lock();
                for (int i = 0; i< 10000; i++) {
+                   TimeUnit.NANOSECONDS.sleep(1); // 休眠1s
                    count++ ;
                }
            }catch (Exception e ) {
@@ -32,6 +35,7 @@ public class LockDemo {
             try {
                 diyLock.lock();
                 for (int i = 0; i< 10000; i++) {
+//                    TimeUnit.SECONDS.sleep(1); // 休眠1s
                     count++ ;
                 }
             }catch (Exception e ) {
