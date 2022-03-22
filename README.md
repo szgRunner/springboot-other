@@ -168,3 +168,22 @@ barrierAction, 方便处理更复杂的业务场景。
  ThreadPoolExecutor | Worker 利用 AQS 同步状态来实现对独占线程变量的设置
     
 
+## JVM 
+
+Java 虚拟机可能会抛出两种错误 <code>StackOverFlowError</code>和 <code>OutOfMemoryError</code>
+```text
+  1、StackOverFlowError
+     若 Java 虚拟机栈的内存大小不允许动态扩展，那么当线程请求栈的深度超过当前 Java 虚拟机栈的最大深度，则抛出 StackOverFlowError
+  2、OutOfMemoryError
+     若 Java 虚拟机栈的内存大小可以动态扩展，如果虚拟机在动态扩展栈时无法申请到足够的内存空间，则抛出 OutOfMemoryError
+```
+
+### 字符串常见问题
+```text
+   1、对于基本数据类型来说，==比较的是值。对于引用数据类型来说，==比较的是对象的内存地址。
+   2、在编译过程中，Javac 编译器（下文中统称为编译器）会进行一个叫做 常量折叠(Constant Folding) 的代码优化。
+常量折叠会把常量表达式的值求出来作为常量嵌在最终生成的代码中，这是 Javac 编译器会对源代码做的极少量优化措施之一(代码优化几乎都在即时编译器中进行)。
+   3、一般来说，我们要尽量避免通过 new 的方式创建字符串。使用双引号声明的 String 对象（ String s1 = "java" ）更利于让编译器有机会优化我们的代码，
+同时也更易于阅读。
+   4、被 final 关键字修改之后的 String 会被编译器当做常量来处理，编译器程序编译期就可以确定它的值，其效果就相当于访问常量。
+```
