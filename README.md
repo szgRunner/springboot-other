@@ -187,3 +187,29 @@ Java 虚拟机可能会抛出两种错误 <code>StackOverFlowError</code>和 <co
 同时也更易于阅读。
    4、被 final 关键字修改之后的 String 会被编译器当做常量来处理，编译器程序编译期就可以确定它的值，其效果就相当于访问常量。
 ```
+
+### Java 垃圾回收详解
+```text
+    如何判断对象是否死亡（两种方法）。
+    简单的介绍一下强引用、软引用、弱引用、虚引用（虚引用与软引用和弱引用的区别、使用软引用能带来的好处）。
+    如何判断一个常量是废弃常量
+    如何判断一个类是无用的类
+    垃圾收集有哪些算法，各自的特点？
+    HotSpot 为什么要分为新生代和老年代？
+    常见的垃圾回收器有哪些？
+    介绍一下 CMS,G1 收集器。
+    Minor Gc 和 Full GC 有什么不同呢？
+```
+调式代码的参数
+-verbose:gc
+-Xmx200M
+-Xms200M
+-Xmn50M
+-XX:+PrintGCDetails
+-XX:TargetSurvivorRatio=60
+-XX:+PrintTenuringDistribution
+-XX:+PrintGCDetails
+-XX:+PrintGCDateStamps
+-XX:MaxTenuringThreshold=3
+-XX:+UseConcMarkSweepGC
+-XX:+UseParNewGC
