@@ -1,3 +1,26 @@
 spring:
   profiles:
     active: dev
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+    context-path: /
+  port: 9080
+  shutdown: graceful
+  http2:
+    enabled: true
+
+mybatis-plus:
+  type-aliases-package: sun.zhao.guo.model
+  global-config:
+    banner: off
+    db-config:
+      id-type: assign_uuid
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    jdbc-type-for-null: null
