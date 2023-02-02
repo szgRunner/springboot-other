@@ -32,7 +32,7 @@ public class DbTest {
         TestInfo testInfo = new TestInfo();
         testInfo.setTestName("sunzg");
 //        testInfo.setTestTime(new Date());
-        testInfo.setVersion(1L);
+//        testInfo.setVersion(1L);
         testInfoService.save(testInfo);
     }
 

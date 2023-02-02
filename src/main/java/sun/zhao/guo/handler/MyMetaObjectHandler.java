@@ -25,6 +25,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         System.out.println("MyMetaObjectHandler.insertFill");
 
         this.strictInsertFill(metaObject, "testTime", Date::new, Date.class);
+        this.strictInsertFill(metaObject, "version", () -> 1L, Long.class);
 
     }
 

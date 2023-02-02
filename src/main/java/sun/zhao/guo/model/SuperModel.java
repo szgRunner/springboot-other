@@ -1,8 +1,6 @@
 package sun.zhao.guo.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 /**
@@ -19,21 +17,6 @@ public class SuperModel<T extends Model<T>> extends Model<T> {
     private String id;
 
     @Version
+    @TableField(fill = FieldFill.INSERT)
     private Long version;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
 }
