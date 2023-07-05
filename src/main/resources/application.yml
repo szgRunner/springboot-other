@@ -22,8 +22,9 @@ mybatis-plus:
       id-type: assign_uuid
   configuration:
     map-underscore-to-camel-case: true
-    cache-enabled: true
+    cache-enabled: false
     jdbc-type-for-null: null
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
 
 logging:
   level:

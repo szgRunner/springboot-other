@@ -1,11 +1,13 @@
 package sun.zhao.guo.db;
 
+import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import sun.zhao.guo.enums.TestEnum;
 import sun.zhao.guo.model.TestInfo;
 import sun.zhao.guo.service.db.TestInfoService;
 
@@ -30,9 +32,11 @@ public class DbTest {
     @Test
     public void test(){
         TestInfo testInfo = new TestInfo();
-        testInfo.setTestName("sunzg");
+        testInfo.setTestName("sunzg-20230705");
 //        testInfo.setTestTime(new Date());
 //        testInfo.setVersion(1L);
+        testInfo.setTestEnum(TestEnum.TEST);
+        testInfo.setTests(Sets.newHashSet("a","b","c"));
         testInfoService.save(testInfo);
     }
 

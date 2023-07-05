@@ -5,8 +5,12 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.ibatis.type.JdbcType;
+import sun.zhao.guo.enums.TestEnum;
+import sun.zhao.guo.handler.TestConvertor;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,4 +30,10 @@ public class TestInfo extends SuperModel<TestInfo> {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date testTime;
+
+    @TableField(jdbcType = JdbcType.INTEGER)
+    private TestEnum testEnum;
+
+    @TableField(jdbcType = JdbcType.VARCHAR, typeHandler = TestConvertor.class)
+    private Set<String> tests;
 }
