@@ -1,5 +1,6 @@
 package sun.zhao.guo;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +12,7 @@ import sun.zhao.guo.utils.MyBeanUtils;
 
 @SpringBootApplication
 @ServletComponentScan
+@EnableEncryptableProperties
 public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
