@@ -28,4 +28,5 @@ mybatis-plus:
 
 logging:
   level:
-    sun.zhao.guo.mapper: debug
+    sun.zhao.guo: debug
+    org.springframework: warn
