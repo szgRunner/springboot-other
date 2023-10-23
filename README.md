@@ -1,6 +1,6 @@
 # springboot-other
-springboot 2.6.2⬆️-> 2.7.15 with other tools
-mybatis-plus 3.5.3.1⬆️ ->3.5.4
+- 1、springboot 2.6.2⬆️-> 2.7.15 with other tools
+- 2、mybatis-plus 3.5.3.1⬆️ ->3.5.4
 
 # 上下文切换
 
