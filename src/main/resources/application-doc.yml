@@ -1,0 +1,23 @@
+knife4j:
+  enable: true
+  setting:
+    enable-footer: false
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: sun.zhao.guo.controller
+  default-flat-param-object: false
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    show-extensions: true
+
+#  Spring Boot 2.6以上引入的新PathPatternParser，需要进行配置，不然整合起来会报错
+#spring:
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
