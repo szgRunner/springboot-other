@@ -9,7 +9,13 @@ import java.time.Instant;
 import java.util.Timer;
 import java.util.TimerTask;
 
-@SpringBootTest
+/**
+ * 解决集成 spring-websocket 时 test 无法启动的问题
+ * 1、@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+ * 2、注释掉websocket 相关注入
+ * 3、根据条件引入不同的配置，防止冲突
+ */
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class HelloTest {
 
