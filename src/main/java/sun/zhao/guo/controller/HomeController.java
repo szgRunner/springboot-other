@@ -7,16 +7,16 @@ import lombok.val;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sun.zhao.guo.constant.Config;
 import sun.zhao.guo.model.User;
 
 import javax.annotation.Resource;
 
 @Tag(name = "测试入口")
 @RestController
+@RequestMapping(Config.API_VERSION + "/home")
+@CrossOrigin(origins = "http://localhost:9080")
 public class HomeController {
 
     @Resource
@@ -35,6 +35,7 @@ public class HomeController {
      * @param user
      * @return
      */
+    @CrossOrigin(origins = "http://localhost:9080")
     @Operation(summary = "测试redis")
     @RequestMapping(value = "/redis", method = RequestMethod.POST)
     public User testRedis(@RequestBody @Validated User user){

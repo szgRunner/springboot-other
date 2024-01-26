@@ -2,6 +2,8 @@ knife4j:
   enable: true
   setting:
     enable-footer: false
+    language: zh_cn
+    enable-home-custom: false
 springdoc:
   api-docs:
     path: /v3/api-docs

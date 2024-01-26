@@ -8,10 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -55,5 +52,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
 
-
+    /**
+     * 跨域
+     * 1、注解 @CrossOrigin
+     * 2、全局配置启用 CROS 支持
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api")
+                .allowedOrigins("http://localhost:9080")
+                .allowedMethods("GET", "POST");
+    }
 }
