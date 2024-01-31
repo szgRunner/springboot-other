@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import sun.zhao.guo.model.User;
 
+import java.util.Date;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class AmqpRabbit {
@@ -45,6 +47,6 @@ public class AmqpRabbit {
 
     @Test
     public void sendMessage(){
-        rabbitTemplate.convertAndSend("fanout_exchange", "", new User("1", "sunzhaoguo"));
+        rabbitTemplate.convertAndSend("fanout_exchange", "", new User("1", "sunzhaoguo", new Date()));
     }
 }

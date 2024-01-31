@@ -28,7 +28,6 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("本地测试系统")
                         .version("1.0")
-
                         .description( "Knife4j集成springdoc-openapi示例")
                         .termsOfService("http://doc.test.com")
                         .license(new License().name("Apache 2.0")

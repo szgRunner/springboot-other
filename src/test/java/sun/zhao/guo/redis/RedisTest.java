@@ -11,6 +11,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import sun.zhao.guo.model.User;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -30,8 +33,13 @@ public class RedisTest {
 
     @Test
     public void test() {
+        LocalDateTime now = LocalDateTime.now();
+
         redisTemplate.opsForValue().set("test:redis",
-                User.builder().id(UUID.fastUUID().toString(true)).userName("sunzhaoguo").build()
+                User.builder().id(UUID.fastUUID().toString(true))
+                        .userName("sunzhaoguo")
+                        .birthday(new Date())
+                        .build()
         );
 
 //        User user = (User) redisTemplate.opsForValue().get("test:redis");
