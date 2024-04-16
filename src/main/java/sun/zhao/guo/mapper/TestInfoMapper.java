@@ -14,5 +14,5 @@ import sun.zhao.guo.model.TestInfo;
  */
 
 @Mapper
-public interface TestInfoMapper extends BaseMapper<TestInfo> {
+public interface TestInfoMapper extends MyBaseMapper<TestInfo> {
 }
