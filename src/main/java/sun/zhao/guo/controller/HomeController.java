@@ -3,7 +3,9 @@ package sun.zhao.guo.controller;
 import cn.hutool.core.lang.UUID;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +23,14 @@ import java.util.List;
 @RestController
 @RequestMapping(Config.API_VERSION + "/home")
 @CrossOrigin(origins = "http://localhost:9080")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class HomeController {
 
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
-    @Resource
-    private TestInfoService infoService;
+//    @Resource
+//    private TestInfoService infoService;
+    private final TestInfoService infoService;
 
     /**
      * 在请求头中的参数，例如 GET 请求，如果是一个对象，
@@ -51,6 +54,7 @@ public class HomeController {
     @CrossOrigin(origins = "http://localhost:9080")
     @Operation(summary = "测试redis")
     @RequestMapping(value = "/redis", method = RequestMethod.POST)
+    @ResponseBody
     public User testRedis(@RequestBody @Validated User user){
         String uuid = UUID.fastUUID().toString(true);
         User redisUser = (User) redisTemplate.opsForValue().get("test:redis");
