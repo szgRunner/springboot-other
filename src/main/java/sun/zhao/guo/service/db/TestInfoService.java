@@ -1,7 +1,7 @@
 package sun.zhao.guo.service.db;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import sun.zhao.guo.mapper.TestInfoMapper;
 import sun.zhao.guo.model.TestInfo;
@@ -29,5 +29,9 @@ public class TestInfoService extends ServiceImpl<TestInfoMapper, TestInfo>{
     @Override
     public List<TestInfo> list() {
         return testInfoMapper.queryList(test -> test.isNotNull("id").orderByAsc("version"));
+    }
+
+    public TestInfo queryOne(String testId) {
+        return testInfoMapper.queryLambdaOne(test -> test.eq(StringUtils.isNotEmpty(testId),TestInfo::getId, testId));
     }
 }

@@ -155,8 +155,19 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //QueryOne
 
-    default T queryLaOne(Consumer<QueryWrapper<T>> action) {
+    default T queryOne(Consumer<QueryWrapper<T>> action) {
         QueryWrapper<T> qw = getQueryWrapper();
+
+        if (action != null) {
+            action.accept(qw);
+        }
+
+        return this.selectOne(qw);
+
+    }
+
+    default T queryLambdaOne(Consumer<LambdaQueryWrapper<T>> action) {
+        LambdaQueryWrapper<T> qw = getLambdaQueryWrapper();
 
         if (action != null) {
             action.accept(qw);

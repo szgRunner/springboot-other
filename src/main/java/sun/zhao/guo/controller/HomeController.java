@@ -57,11 +57,18 @@ public class HomeController {
         return redisUser;
     }
 
-    @Operation(summary = "show users")
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @Operation(summary = "show tests")
+    @RequestMapping(value = "/tests", method = RequestMethod.GET)
     public HttpResponseTemp<List<TestInfo>> hello(){
         List<TestInfo> testInfos = infoService.list();
         return ResultStat.OK.wrap(testInfos);
+    }
+
+    @Operation(summary = "show single test")
+    @RequestMapping(value = "/tests/id",  method = RequestMethod.GET)
+    public HttpResponseTemp<TestInfo> helloUser(@RequestParam(defaultValue = "cfe16c19a1209d73a30b839646b3fe78") String testId){
+        TestInfo testInfo = infoService.queryOne(testId);
+        return ResultStat.OK.wrap(testInfo);
     }
 
 }
