@@ -34,4 +34,8 @@ public class TestInfoService extends ServiceImpl<TestInfoMapper, TestInfo>{
     public TestInfo queryOne(String testId) {
         return testInfoMapper.queryLambdaOne(test -> test.eq(StringUtils.isNotEmpty(testId),TestInfo::getId, testId));
     }
+
+    public List<TestInfo> listByVersion(Integer version) {
+        return testInfoMapper.queryTestInfoList(version);
+    }
 }
