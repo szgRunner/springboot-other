@@ -16,7 +16,6 @@ import sun.zhao.guo.model.TestInfo;
 import sun.zhao.guo.model.User;
 import sun.zhao.guo.service.db.TestInfoService;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Tag(name = "测试入口")
@@ -58,7 +57,7 @@ public class HomeController {
     public User testRedis(@RequestBody @Validated User user){
         String uuid = UUID.fastUUID().toString(true);
         User redisUser = (User) redisTemplate.opsForValue().get("test:redis");
-        return redisUser;
+        return new User();
     }
 
     @Operation(summary = "show tests")
@@ -81,7 +80,7 @@ public class HomeController {
 
     @Operation(summary = "show single test")
     @RequestMapping(value = "/tests/id",  method = RequestMethod.GET)
-    public HttpResponseTemp<TestInfo> helloUser(@RequestParam(defaultValue = "cfe16c19a1209d73a30b839646b3fe78") String testId){
+    public HttpResponseTemp<TestInfo> helloUser(@RequestParam(defaultValue = "7079f79b535e8c6a3f6952c2eee7040d") String testId){
         TestInfo testInfo = infoService.queryOne(testId);
         return ResultStat.OK.wrap(testInfo);
     }

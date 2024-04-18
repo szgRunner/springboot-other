@@ -8,16 +8,17 @@
         <result column="test_enum" property="testEnum" jdbcType="INTEGER"/>
         <result column="test_name" property="testName" jdbcType="VARCHAR"/>
         <result column="version" property="version" jdbcType="BIGINT"/>
-        <collection column="tests" property="tests" ofType="java.lang.String" javaType="java.util.Set"
-                    typeHandler="sun.zhao.guo.handler.TestConvertor"/>
+        <collection column="tests" property="tests" ofType="java.lang.String"
+                    jdbcType="VARCHAR" javaType="java.util.List"
+                    typeHandler="sun.zhao.guo.type.handler.TestInfoHandler"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, test_time, test_enum, tests, test_name, "version"
+        id, test_time, test_enum, test_name, "version", tests
     </sql>
 
 
-    <select id="queryTestInfoList" parameterType="integer" resultMap="BaseResultMap">
+    <select id="queryTestInfoList" parameterType="integer">
         select
         <include refid="Base_Column_List"/>
         from test_info

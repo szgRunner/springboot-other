@@ -3,8 +3,7 @@ package sun.zhao.guo.model;
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +11,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.JdbcType;
 import sun.zhao.guo.enums.TestEnum;
-import sun.zhao.guo.handler.TestConvertor;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,12 +29,16 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
+//@Accessors(chain = true)
+//@TableName(autoResultMap = true)
+
 public class TestInfo extends SuperModel<TestInfo> {
 
     private String testName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-//    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date testTime;
 
@@ -44,7 +46,22 @@ public class TestInfo extends SuperModel<TestInfo> {
     private TestEnum testEnum;
 
 //    @JSONField(deserializeUsing = Set.class)
-    @JsonIgnore
-    @TableField(jdbcType = JdbcType.VARCHAR, typeHandler = TestConvertor.class)
-    private Set<String> tests;
+//    @JsonIgnore
+    @TableField(jdbcType = JdbcType.VARCHAR, typeHandler = Fastjson2TypeHandler.class)
+    private List<String> tests;
+
+
+    /**
+     * 注意！！ 必须开启映射注解
+     *
+     * @TableName(autoResultMap = true)
+     *
+     * 以下两种类型处理器，二选一 也可以同时存在
+     *
+     * 注意！！选择对应的 JSON 处理器也必须存在对应 JSON 解析依赖包
+     */
+    // @TableField(typeHandler = JacksonTypeHandler.class)
+    // @TableField(typeHandler = FastjsonTypeHandler.class)
+    // private OtherInfo otherInfo;
+
 }

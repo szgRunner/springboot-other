@@ -1,11 +1,10 @@
 package sun.zhao.guo.handler;
 
-import cn.hutool.Hutool;
-import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.extension.handlers.AbstractJsonTypeHandler;
-import com.google.common.collect.Sets;
 
-import java.util.Set;
+import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,14 +14,23 @@ import java.util.Set;
  * @Date: 2023/07/05/下午3:10
  * @Description:
  */
-public class TestConvertor extends AbstractJsonTypeHandler<Set<String>> {
-    @Override
-    protected Set<String> parse(String json) {
-        return Sets.newHashSet(JSONUtil.toList(json, String.class));
+public class TestConvertor extends AbstractJsonTypeHandler<List<String>> {
+
+    public TestConvertor(Class<?> type) {
+        super(type);
+    }
+
+    public TestConvertor(Class<?> type, Field field) {
+        super(type, field);
     }
 
     @Override
-    protected String toJson(Set<String> obj) {
-        return JSONUtil.toJsonStr(obj);
+    public List<String> parse(String json) {
+        return JSON.parseArray(json, String.class);
+    }
+
+    @Override
+    public String toJson(Object obj) {
+        return JSON.toJSONString(obj);
     }
 }

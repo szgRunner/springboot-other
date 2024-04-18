@@ -22,6 +22,6 @@ public interface TestInfoMapper extends MyBaseMapper<TestInfo> {
     List<TestInfo> queryTestInfoList(@Param("version") Integer version);
 
     @Select("select * from test_info")
-    List<TestInfo> queryTestInfoList();
+    List<TestInfo> queryTestInfoAll();
 
 }

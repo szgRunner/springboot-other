@@ -45,10 +45,17 @@ public class RedisConfiguration {
 //        fastJsonConfig.setJSONB(true);
         fastJsonConfig.setReaderFeatures(
                 JSONReader.Feature.SupportAutoType,
-                JSONReader.Feature.SupportArrayToBean
+                JSONReader.Feature.SupportArrayToBean,
+                JSONReader.Feature.SupportClassForName
         );
         fastJsonConfig.setWriterFeatures(
                 JSONWriter.Feature.WriteClassName,
+                JSONWriter.Feature.WriteEnumUsingToString,
+                /**
+                 * 为null的属性默认自动排除
+                 * 在fastjson中，缺省是不输出空值的。无论Map中的null和对象属性中的null，序列化的时候都会被忽略不输出，这样会减少产生文本的大小。
+                 * 但是有时候接口联调需要，非要输出的话，用：SerializerFeature.WriteMapNullValue
+                 */
                 JSONWriter.Feature.WriteMapNullValue,
                 JSONWriter.Feature.WriteNullListAsEmpty,
 //                JSONWriter.Feature.WriteNullStringAsEmpty,

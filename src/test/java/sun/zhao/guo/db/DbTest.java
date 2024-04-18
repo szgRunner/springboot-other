@@ -1,6 +1,7 @@
 package sun.zhao.guo.db;
 
-import com.google.common.collect.Sets;
+import com.baomidou.mybatisplus.test.autoconfigure.MybatisPlusTest;
+import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
@@ -11,8 +12,6 @@ import sun.zhao.guo.enums.TestEnum;
 import sun.zhao.guo.model.TestInfo;
 import sun.zhao.guo.service.db.TestInfoService;
 
-import java.util.Date;
-
 /**
  * Created with IntelliJ IDEA.
  *
@@ -21,6 +20,7 @@ import java.util.Date;
  * @Date: 2023/02/02/下午3:22
  * @Description:
  */
+//@MybatisPlusTest
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class DbTest {
@@ -36,7 +36,7 @@ public class DbTest {
 //        testInfo.setTestTime(new Date());
 //        testInfo.setVersion(1L);
         testInfo.setTestEnum(TestEnum.TEST);
-        testInfo.setTests(Sets.newHashSet("a","b","c"));
+        testInfo.setTests(Lists.newArrayList("a", "b", "c"));
         testInfoService.save(testInfo);
     }
 
