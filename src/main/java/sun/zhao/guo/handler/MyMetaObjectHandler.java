@@ -26,6 +26,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
         this.strictInsertFill(metaObject, "testTime", Date::new, Date.class);
         this.strictInsertFill(metaObject, "version", () -> 1L, Long.class);
+        this.strictInsertFill(metaObject, "birthday", Date::new, Date.class);
 
     }
 

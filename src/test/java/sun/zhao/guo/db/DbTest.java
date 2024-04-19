@@ -1,6 +1,5 @@
 package sun.zhao.guo.db;
 
-import com.baomidou.mybatisplus.test.autoconfigure.MybatisPlusTest;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.junit.jupiter.api.Order;
@@ -9,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import sun.zhao.guo.enums.TestEnum;
+import sun.zhao.guo.mapper.UserMapper;
 import sun.zhao.guo.model.TestInfo;
+import sun.zhao.guo.model.User;
 import sun.zhao.guo.service.db.TestInfoService;
 
 /**
@@ -27,6 +28,9 @@ public class DbTest {
 
     @Autowired
     private TestInfoService testInfoService;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Order(0)
     @Test
@@ -47,6 +51,14 @@ public class DbTest {
         testInfo.setTestName("sunzhaoguo");
 //        testInfo.setTestTime(new Date());
         testInfoService.updateById(testInfo);
+    }
+
+
+    @Order(2)
+    @Test
+    public void test2(){
+        userMapper.saveUser(User.builder().userName("sunzhaoguo").build());
+        userMapper.insert(User.builder().userName("sunzg").build());
     }
 
 }

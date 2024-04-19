@@ -73,14 +73,14 @@ public class HomeController {
      */
     @Operation(summary = "show tests by version")
     @RequestMapping(value = "/tests/version", method = RequestMethod.GET)
-    public HttpResponseTemp<List<TestInfo>> hello(@RequestParam(defaultValue = "0") Integer version){
+    public HttpResponseTemp<List<TestInfo>> hello(@RequestParam(defaultValue = "1") Integer version){
         List<TestInfo> testInfos = infoService.listByVersion(version);
         return ResultStat.OK.wrap(testInfos);
     }
 
     @Operation(summary = "show single test")
     @RequestMapping(value = "/tests/id",  method = RequestMethod.GET)
-    public HttpResponseTemp<TestInfo> helloUser(@RequestParam(defaultValue = "7079f79b535e8c6a3f6952c2eee7040d") String testId){
+    public HttpResponseTemp<TestInfo> helloUser(@RequestParam(defaultValue = "2599aadab1b788cdaa95b4d24be96715") String testId){
         TestInfo testInfo = infoService.queryOne(testId);
         return ResultStat.OK.wrap(testInfo);
     }

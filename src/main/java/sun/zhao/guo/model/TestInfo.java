@@ -37,6 +37,8 @@ public class TestInfo extends SuperModel<TestInfo> {
 
     private String testName;
 
+    private String userId;
+
 //    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.INSERT_UPDATE)
@@ -47,7 +49,7 @@ public class TestInfo extends SuperModel<TestInfo> {
 
 //    @JSONField(deserializeUsing = Set.class)
 //    @JsonIgnore
-    @TableField(jdbcType = JdbcType.VARCHAR, typeHandler = Fastjson2TypeHandler.class)
+    @TableField(value = "tests", jdbcType = JdbcType.VARCHAR, typeHandler = Fastjson2TypeHandler.class)
     private List<String> tests;
 
 
@@ -63,5 +65,8 @@ public class TestInfo extends SuperModel<TestInfo> {
     // @TableField(typeHandler = JacksonTypeHandler.class)
     // @TableField(typeHandler = FastjsonTypeHandler.class)
     // private OtherInfo otherInfo;
+
+    @TableField(exist = false, typeHandler = Fastjson2TypeHandler.class)
+    private User user;
 
 }

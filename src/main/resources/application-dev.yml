@@ -10,8 +10,8 @@ spring:
     druid:
       driver-class-name: ENC(2g3VSrP4AkHgTWQCDq5yDjiNl3ukuK3sOwjju/wo3Gs=)
       url: ENC(P5LYkvV7GYgzhuEvOmwcoADJGS0EKmRca/kVUx9lzFNqAsZ05vJ2lyuI2/BdlF+6nV5HV+WAWck=)
-      username: ENC(wmGVdm3W47nLS2MdPwsVgDTStCkLk/sl)
-      password: ENC(wmGVdm3W47nLS2MdPwsVgDTStCkLk/sl)
+      username: sunzg
+      password: 123456
 
   redis:
     host: 82.156.13.69

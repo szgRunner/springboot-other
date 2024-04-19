@@ -4,21 +4,36 @@
 
     <resultMap id="BaseResultMap" type="sun.zhao.guo.model.TestInfo">
         <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="test_time" property="testTime" jdbcType="TIMESTAMP"/>
         <result column="test_enum" property="testEnum" jdbcType="INTEGER"/>
         <result column="test_name" property="testName" jdbcType="VARCHAR"/>
         <result column="version" property="version" jdbcType="BIGINT"/>
-        <collection column="tests" property="tests" ofType="java.lang.String"
-                    jdbcType="VARCHAR" javaType="java.util.List"
+
+        <association property="user" javaType="User" column="user_id" select="queryUserByUserId">
+            <id column="id" property="id" jdbcType="VARCHAR"/>
+            <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+            <result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
+        </association>
+
+        <collection property="tests" column="tests" ofType="java.lang.String"
+                    javaType="java.util.ArrayList"
                     typeHandler="sun.zhao.guo.type.handler.TestInfoHandler"/>
     </resultMap>
 
+    <resultMap id="BaseUserMap" type="User">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
     <sql id="Base_Column_List">
-        id, test_time, test_enum, test_name, "version", tests
+        id, user_id, test_time, test_enum, test_name, "version", tests
     </sql>
 
 
-    <select id="queryTestInfoList" parameterType="integer">
+    <select id="queryTestInfoList" parameterType="integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from test_info
@@ -37,5 +52,8 @@
       order by id desc
     </select>
 
+    <select id="queryUserByUserId" parameterType="string" resultMap="BaseUserMap">
+        select * from user_info where id = #{user_id}
+    </select>
 
 </mapper>
