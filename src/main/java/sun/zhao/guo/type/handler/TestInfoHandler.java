@@ -30,16 +30,19 @@ public class TestInfoHandler extends BaseTypeHandler<List<String>> {
 
     @Override
     public List<String> getNullableResult(ResultSet rs, String columnName) throws SQLException {
+        System.out.println("columnName = " + columnName);
         return JSON.parseArray(rs.getString(columnName), String.class);
     }
 
     @Override
     public List<String> getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+        System.out.println("columnIndex = " + columnIndex);
         return JSON.parseArray(rs.getString(columnIndex), String.class);
     }
 
     @Override
     public List<String> getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+        System.out.println("TestInfoHandler.getNullableResult: " + columnIndex);
         return JSON.parseArray(cs.getString(columnIndex), String.class);
     }
 }
