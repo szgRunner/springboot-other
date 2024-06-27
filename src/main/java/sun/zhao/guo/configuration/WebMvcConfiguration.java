@@ -6,6 +6,7 @@ import com.alibaba.fastjson2.support.config.FastJsonConfig;
 import com.alibaba.fastjson2.support.spring.http.converter.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -29,9 +30,30 @@ import java.util.List;
 @EnableWebMvc
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
+    /**
+     * 如果你在Spring Boot应用中发现WebMvcConfigurer配置的转换器未生效，
+     * 或者尝试添加HttpMessageConverter时发现它们没有被注册，这里有几个可能的原因及解决方案：
+     *
+     * 1. 确保重写方法正确
+     * 在Spring Boot应用中，通过扩展WebMvcConfigurer接口来添加自定义的HttpMessageConverter时，
+     * 应该重写extendMessageConverters方法而不是configureMessageConverters。
+     * 这是因为Spring Boot自动配置了自己的转换器，你应该在不替换默认配置的基础上进行扩展。
+     *
+     *
+     * //@Configuration
+     * public class WebConfig implements WebMvcConfigurer {
+     *
+     *     //@Override
+     *     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+     *         // 添加自定义的转换器到现有列表
+     *         converters.add(new ByteArrayHttpMessageConverter());
+     *     }
+     * }
+     * @param converters
+     */
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//        super.configureMessageConverters(converters);
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        WebMvcConfigurer.super.configureMessageConverters(converters);
 
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         //自定义配置...
@@ -44,6 +66,14 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
         converters.add(0, converter);
 
+        // 添加 ByteArrayHttpMessageConverter
+        /**
+         * 确保你的Spring配置中包含了ByteArrayHttpMessageConverter，
+         * 它是处理字节数组并支持application/octet-streamContent-Type的标准转换器。
+         * 如果你使用的是Spring Boot，这个转换器通常已经自动配置好了。
+         * 但如果你遇到上述错误，可能是因为某些原因它没有正常工作或者被覆盖了。
+         */
+//        converters.add(new ByteArrayHttpMessageConverter());
     }
 
 
