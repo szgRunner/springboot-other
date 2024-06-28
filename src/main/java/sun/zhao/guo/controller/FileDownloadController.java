@@ -44,6 +44,7 @@ public class FileDownloadController {
         }
     }
 
+    @Operation(summary = "下载文件夹内所有文件并转为zip压缩包2")
     @GetMapping("/download/{fileName}")
     public ResponseEntity<FileSystemResource> downloadFile(@PathVariable String fileName) throws IOException {
         // 假设文件存储在服务器的某个目录下，例如："/path/to/files/"
