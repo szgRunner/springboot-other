@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import sun.zhao.guo.constant.Config;
 import sun.zhao.guo.exception.HttpResponseTemp;
 import sun.zhao.guo.exception.ResultStat;
@@ -82,6 +83,8 @@ public class HomeController {
     @RequestMapping(value = "/tests/id",  method = RequestMethod.GET)
     public HttpResponseTemp<TestInfo> helloUser(@RequestParam(defaultValue = "2599aadab1b788cdaa95b4d24be96715") String testId){
         TestInfo testInfo = infoService.queryOne(testId);
+        String toString = ServletUriComponentsBuilder.fromCurrentContextPath().path("/").build().toString();
+        System.out.println("toString = " + toString);
         return ResultStat.OK.wrap(testInfo);
     }
 
