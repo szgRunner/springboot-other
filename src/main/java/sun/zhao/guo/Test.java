@@ -1,8 +1,5 @@
 package sun.zhao.guo;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,12 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Test {
-
-    private final static Logger logger = LogManager.getLogger(Test.class);
-
     public static void test(String[] args) {
         String test = "${java:hw}";
-        logger.info("log4j =  {}", test);
 
 
         /**
