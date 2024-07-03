@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>hello</artifactId>
-    <packaging>jar</packaging>
+    <name>hello</name>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -61,7 +61,6 @@
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>3.0.5</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -149,6 +148,13 @@
             <artifactId>study-easyexcel</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -158,10 +164,60 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
+            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!--jar包的入口 main方法-->
+                            <mainClass>sun.zhao.guo.Application</mainClass>
+                        </manifest>
+                    </archive>
+                    <!-- 生成的jar包的名称前缀 -->
+                    <!-- 指定了最终生成的归档文件的名称。这里使用了 ${project.parent.artifactId}，表示使用父项目的 artifactId 作为最终的文件名 -->
+                    <finalName>${project.parent.artifactId}</finalName>
+                    <!-- 指定了输出目录，即最终生成的归档文件将被放置在 ${project.build.directory}（通常是 target 目录）中 -->
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <!-- descriptors：指定了一个或多个描述符文件，用于定义如何构建归档文件 -->
+                    <descriptors>
+                        <!-- descriptor:这里指定了一个名为 assembly.xml 的描述符文件，用于定义如何打包归档文件 -->
+                        <descriptor>src/main/assembly/package.xml</descriptor>
+                    </descriptors>
+                    <!-- 指定是否将装配 ID 附加到最终的归档文件名中。在这里，设置为 false 表示不附加 -->
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <!--指定了一个执行阶段-->
+                    <execution>
+                        <!--指定了执行的 ID-->
+                        <id>make-assembly</id>
+                        <!-- 指定了插件的执行阶段，在 Maven 生命周期中，package 阶段用于打包项目 -->
+                        <phase>package</phase>
+                        <!--指定了要执行的目标-->
+                        <goals>
+                            <!-- 指定了要执行的目标为 single，表示只执行一次装配操作 -->
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
             </plugin>
         </plugins>
     </build>

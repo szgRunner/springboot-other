@@ -1,0 +1,46 @@
+<assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+    <id>assembly</id>
+    <formats>
+        <!--支持 zip，tar，tar.gz，tar.bz2，jar，dir，war 等 -->
+        <format>dir</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**.yml</include>
+                <include>**.xml</include>
+            </includes>
+            <outputDirectory>conf</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/</directory>
+            <includes>
+                <include>hello-${project.version}.jar</include>
+            </includes>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>study-easyexcel/target/study-easyexcel-${project.version}</directory>
+            <includes>
+                <include>**/*.*</include>
+            </includes>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>true</useProjectArtifact>
+            <excludes>
+                <exclude>javax.servlet:servlet-api</exclude>
+                <exclude>org.eclipse.jetty.aggregate:jetty-all</exclude>
+                <exclude>org.slf4j:slf4j-log4j12</exclude>
+            </excludes>
+        </dependencySet>
+    </dependencySets>
+</assembly>

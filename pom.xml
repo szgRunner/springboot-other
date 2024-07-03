@@ -35,15 +35,20 @@
     </properties>
 
 
+    <dependencyManagement>
+
+    </dependencyManagement>
+
+
     <dependencies>
-<!--
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
- -->
+        <!--
+                <dependency>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                    <version>4.13.2</version>
+                    <scope>test</scope>
+                </dependency>
+         -->
 
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
@@ -62,6 +67,51 @@
 
 
     </dependencies>
+<!--
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <descriptors>
+                        &lt;!&ndash; descriptor:这里指定了一个名为 assembly.xml 的描述符文件，用于定义如何打包归档文件 &ndash;&gt;
+                        <descriptor>src/main/assembly/package.xml</descriptor>
+                    </descriptors>
+                    &lt;!&ndash; 指定是否将装配 ID 附加到最终的归档文件名中。在这里，设置为 false 表示不附加 &ndash;&gt;
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    &lt;!&ndash;指定了一个执行阶段&ndash;&gt;
+                    <execution>
+                        &lt;!&ndash;指定了执行的 ID&ndash;&gt;
+                        <id>make-assembly</id>
+                        &lt;!&ndash; 指定了插件的执行阶段，在 Maven 生命周期中，package 阶段用于打包项目 &ndash;&gt;
+                        <phase>package</phase>
+                        &lt;!&ndash;指定了要执行的目标&ndash;&gt;
+                        <goals>
+                            &lt;!&ndash; 指定了要执行的目标为 single，表示只执行一次装配操作 &ndash;&gt;
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+-->
 
     <profiles>
         <profile>
