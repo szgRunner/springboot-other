@@ -1,4 +1,4 @@
-package sun.zhao.guo;
+package guo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package sun.zhao.guo.rabbit;
+package guo.rabbit;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

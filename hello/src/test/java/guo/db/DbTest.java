@@ -1,4 +1,4 @@
-package sun.zhao.guo.db;
+package guo.db;
 
 import com.google.common.collect.Lists;
 import org.junit.Test;

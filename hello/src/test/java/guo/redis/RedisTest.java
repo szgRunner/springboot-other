@@ -1,4 +1,4 @@
-package sun.zhao.guo.redis;
+package guo.redis;
 
 import cn.hutool.core.lang.UUID;
 import com.alibaba.fastjson2.JSON;
