@@ -9,8 +9,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="report" />
-        <module name="common" />
+        <module name="study-easyexcel" />
         <module name="hello" />
+        <module name="common" />
+        <module name="study-poi" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -18,6 +20,8 @@
       <module name="hello" target="1.8" />
       <module name="report" target="1.8" />
       <module name="springboot-other" target="1.8" />
+      <module name="study-easyexcel" target="1.8" />
+      <module name="study-poi" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -26,6 +30,8 @@
       <module name="hello" options="-parameters" />
       <module name="report" options="-parameters" />
       <module name="springboot-other" options="" />
+      <module name="study-easyexcel" options="-parameters" />
+      <module name="study-poi" options="-parameters" />
     </option>
   </component>
 </project>

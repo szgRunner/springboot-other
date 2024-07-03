@@ -6,6 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/hello.iml" filepath="$PROJECT_DIR$/hello.iml" />
       <module fileurl="file://$PROJECT_DIR$/report.iml" filepath="$PROJECT_DIR$/report.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-other.iml" filepath="$PROJECT_DIR$/springboot-other.iml" />
+      <module fileurl="file://$PROJECT_DIR$/study-easyexcel.iml" filepath="$PROJECT_DIR$/study-easyexcel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/study-poi.iml" filepath="$PROJECT_DIR$/study-poi.iml" />
     </modules>
   </component>
 </project>
