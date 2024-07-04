@@ -15,7 +15,6 @@ import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.alibaba.excel.util.IoUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +41,7 @@ public class SxjgUrlImageConverter implements Converter<URL> {
                                                GlobalConfiguration globalConfiguration) throws IOException {
         InputStream inputStream = null;
         try {
-            if (ObjectUtils.isEmpty(value)){
+            if (value == null){
                 return new WriteCellData<>("图片链接为空");
             }
             URLConnection urlConnection = value.openConnection();

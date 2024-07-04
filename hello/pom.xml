@@ -182,9 +182,9 @@
                     </archive>
                     <!-- 生成的jar包的名称前缀 -->
                     <!-- 指定了最终生成的归档文件的名称。这里使用了 ${project.parent.artifactId}，表示使用父项目的 artifactId 作为最终的文件名 -->
-                    <finalName>${project.parent.artifactId}</finalName>
+                    <!-- <finalName>${project.parent.artifactId}</finalName>-->
                     <!-- 指定了输出目录，即最终生成的归档文件将被放置在 ${project.build.directory}（通常是 target 目录）中 -->
-                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <!-- <outputDirectory>${project.build.directory}</outputDirectory>-->
                     <!-- descriptors：指定了一个或多个描述符文件，用于定义如何构建归档文件 -->
                     <descriptors>
                         <!-- descriptor:这里指定了一个名为 assembly.xml 的描述符文件，用于定义如何打包归档文件 -->

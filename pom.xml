@@ -71,6 +71,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -80,6 +81,11 @@
                         &lt;!&ndash; descriptor:这里指定了一个名为 assembly.xml 的描述符文件，用于定义如何打包归档文件 &ndash;&gt;
                         <descriptor>src/main/assembly/package.xml</descriptor>
                     </descriptors>
+                    &lt;!&ndash; 生成的jar包的名称前缀 &ndash;&gt;
+                    &lt;!&ndash; 指定了最终生成的归档文件的名称。这里使用了 ${project.parent.artifactId}，表示使用父项目的 artifactId 作为最终的文件名 &ndash;&gt;
+                    <finalName>${project.artifactId}</finalName>
+                    &lt;!&ndash; 指定了输出目录，即最终生成的归档文件将被放置在 ${project.build.directory}（通常是 target 目录）中 &ndash;&gt;
+                    &lt;!&ndash; <outputDirectory>${project.build.directory}</outputDirectory>&ndash;&gt;
                     &lt;!&ndash; 指定是否将装配 ID 附加到最终的归档文件名中。在这里，设置为 false 表示不附加 &ndash;&gt;
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>

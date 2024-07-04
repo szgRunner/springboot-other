@@ -12,12 +12,18 @@
         <fileSet>
             <directory>src/main/resources</directory>
             <includes>
-                <include>**.yml</include>
-                <include>**.xml</include>
+                <include>application-dev.yml</include>
             </includes>
             <outputDirectory>conf</outputDirectory>
         </fileSet>
         <fileSet>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>logback.xml</include>
+            </includes>
+            <outputDirectory>conf/log</outputDirectory>
+        </fileSet>
+        <!--<fileSet>
             <directory>target/</directory>
             <includes>
                 <include>hello-${project.version}.jar</include>
@@ -25,13 +31,24 @@
             <outputDirectory>lib</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>study-easyexcel/target/study-easyexcel-${project.version}</directory>
+            <directory>study-easyexcel/target/study-easyexcel</directory>
             <includes>
-                <include>**/*.*</include>
+                <include>study-easyexcel-${project.version}.jar</include>
             </includes>
             <outputDirectory>lib</outputDirectory>
-        </fileSet>
+        </fileSet>-->
     </fileSets>
+    <!--<moduleSets>
+        <moduleSet>
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <excludes>
+                <exclude>*:test-distribution</exclude>
+            </excludes>
+            <sources>
+                <outputDirectory>lib</outputDirectory>
+            </sources>
+        </moduleSet>
+    </moduleSets>-->
     <dependencySets>
         <dependencySet>
             <outputDirectory>lib</outputDirectory>

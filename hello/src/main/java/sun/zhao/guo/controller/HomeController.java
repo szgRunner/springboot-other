@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -56,8 +57,16 @@ public class HomeController {
     @RequestMapping(value = "/redis", method = RequestMethod.POST)
     @ResponseBody
     public User testRedis(@RequestBody @Validated User user){
-        String uuid = UUID.fastUUID().toString(true);
-        User redisUser = (User) redisTemplate.opsForValue().get("test:redis");
+
+        if (ObjectUtils.isEmpty(user)){
+            return new User();
+        }
+
+        if (org.apache.commons.lang3.ObjectUtils.isNotEmpty(user)) {
+
+            String uuid = UUID.fastUUID().toString(true);
+            return (User) redisTemplate.opsForValue().get("test:redis");
+        }
         return new User();
     }
 
