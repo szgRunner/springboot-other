@@ -3,6 +3,7 @@ package sun.zhao.guo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.Objects;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,10 +17,15 @@ public class MainTest {
 
     public static void main(String[] args) {
 
+        // 日期格式化
         DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
         String format = LocalDate.now().format(dateTimeFormatter);
         System.out.println("format = " + format);
 
+
+        String path = Objects.requireNonNull(MainTest.class.getResource("/")).getPath();
+
+        System.out.println("path = " + path);
 
     }
 
