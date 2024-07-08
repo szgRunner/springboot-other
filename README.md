@@ -225,3 +225,15 @@ Java 虚拟机可能会抛出两种错误 <code>StackOverFlowError</code>和 <co
 就可以完成每次的垃圾收集。而老年代的对象存活几率是比较高的，而且没有额外的空间对它进行分配担保。所有我们
 必须要选择 “标记-清除” 或 “标记-整理” 算法进行垃圾收集。
 ```
+
+#### EasyExcel获取文件目标
+- 使用如下方式再项目构建之后，SpringBoot结构的包无法定位模板位置
+```text
+String filePath = Thread.currentThread().getContextClassLoader().getResource("/template/complexFillWithTable.xlsx").getPath()
+
+```
+- 使用 ClassPathResource可满足Springboot运行需求
+```text
+ClassPathResource classPathResource = new ClassPathResource("/template/complexFillWithTable.xlsx");
+InputStream inputStream = classPathResource.getInputStream();
+```
