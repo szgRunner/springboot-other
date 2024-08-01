@@ -29,6 +29,7 @@ mybatis-plus:
     cache-enabled: false
     jdbc-type-for-null: null
     default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   level:
